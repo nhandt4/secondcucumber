@@ -49,7 +49,10 @@ public class ProductDetailPage {
         return item1;
     }
     public void clickCartBtn(){
-        waitFunc.until(ExpectedConditions.elementToBeClickable(btnCancel)).click();
+        try{waitFunc.until(ExpectedConditions.elementToBeClickable(btnCancel)).click();}
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
         waitFunc.until(ExpectedConditions.elementToBeClickable(btnCart)).click();
     }
 

@@ -18,7 +18,7 @@ public class SearchResultPage {
     public WebElement noResult;
     @FindBy(xpath = "//div[@class = 'filter-list-box']")
     public WebElement result;
-    @FindBy(xpath = "(//div[@class = 'product-item    search-div-product-item'])[1]")
+    @FindBy(xpath = "(//a[contains(@class, 'search-a-product-item')])[1]")
     public WebElement item;
 
 //    @FindBy(xpath = "(//a[@class='search-a-product-item'])[1]//p[@class='title']")
@@ -26,6 +26,8 @@ public class SearchResultPage {
     public WebElement itemTitle;
     @FindBy(xpath = "(//span[@class='final-price'])[1]")
     public WebElement itemPrice;
+    @FindBy(id ="onesignal-popover-cancel-button")
+    public WebElement btnCancel;
 
     public SearchResultPage(){
         this.driver = Hooks.driver;
@@ -58,6 +60,11 @@ public class SearchResultPage {
         if(result.contains("Không tìm thấy")){
             return false;
         } else{
+            try {
+                waitFunc.until(ExpectedConditions.elementToBeClickable(btnCancel)).click();
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
             waitFunc.until(ExpectedConditions.elementToBeClickable(item)).click();
             return true;
         }
